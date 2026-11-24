@@ -1,7 +1,7 @@
 export const FAQ_DATA = [
   {
     question: "Apa itu SAFRONS?",
-    answer: "Smart Agriculture and Fertilizer Recommendation System (SAFRONS) adalah platform sistem informasi geografis analitik spasial pertanian presisi tinggi. Sistem ini memetakan kandungan unsur hara tanah serta menyajikan rekomendasi pemupukan presisi untuk mendukung peningkatan hasil tani secara berkelanjutan."
+    answer: "Smart Agriculture and Fertilizer Recommendation System (SAFRONS) adalah platform sistem informasi geografis analitik spasial pertanian presisi tinggi. Versi ini, SAFRONS Jagung, berfokus pada satu komoditas: sistem menilai kesesuaian setiap satuan lahan di Bogor dan sekitarnya untuk jagung, mengurutkan lahan terbaik, dan menyajikan paket pemupukan sesuai tipe profil hara lahan."
   },
   {
     question: "Bagaimana cara membaca peta interaktif SAFRONS?",
@@ -17,7 +17,23 @@ export const FAQ_DATA = [
   },
   {
     question: "Apa perbedaan dan arti dari status kesesuaian lahan S1, S2, S3, dan N?",
-    answer: "Tingkat kesesuaian tanah untuk komoditas tanaman diklasifikasikan menjadi:\n- S1 (Sangat Sesuai): Lahan sangat optimal untuk pertumbuhan tanaman tanpa ada faktor pembatas yang berarti.\n- S2 (Cukup Sesuai): Lahan memiliki sedikit faktor pembatas (seperti tekstur tanah atau kemiringan lereng sedang) yang membutuhkan pengelolaan ringan.\n- S3 (Sesuai Bersyarat): Lahan memiliki faktor pembatas cukup berat, sehingga membutuhkan tindakan perbaikan hara atau pengelolaan khusus agar tanaman dapat berproduksi secara optimal.\n- N (Tidak Sesuai): Lahan memiliki pembatas yang sangat berat atau kritis (seperti lereng yang sangat curam atau keasaman ekstrem) sehingga tidak disarankan untuk budidaya tanaman tersebut."
+    answer: "Tingkat kesesuaian lahan untuk jagung diklasifikasikan menurut Petunjuk Teknis Evaluasi Lahan (Ritung dkk., 2011):\n- S1 (Sangat Sesuai): Lahan optimal untuk jagung tanpa faktor pembatas yang berarti.\n- S2 (Cukup Sesuai): Lahan memiliki faktor pembatas ringan (misalnya lereng 3–8% atau hara rendah) yang memerlukan pengelolaan.\n- S3 (Sesuai Marginal): Lahan memiliki faktor pembatas berat (misalnya lereng 8–15%, drainase terhambat, atau hara sangat rendah) sehingga memerlukan pengelolaan khusus.\n- N (Tidak Sesuai): Lahan memiliki pembatas yang sangat berat, misalnya lereng di atas 15%, sehingga tidak disarankan untuk jagung.\nKelas akhir ditentukan oleh faktor terburuk (hukum minimum Liebig), bukan rata-rata."
+  },
+  {
+    question: "Apa beda kelas aktual dan kelas potensial?",
+    answer: "- Kelas aktual menggambarkan kesesuaian lahan untuk jagung dengan kondisi saat ini.\n- Kelas potensial menggambarkan kesesuaian setelah perbaikan yang wajar: pH masam dikapur dan N, P, K dipupuk sampai sesuai (naik ke S1), serta drainase yang tergenang diperbaiki satu kelas dengan saluran drainase.\n- Lereng, tekstur tanah, drainase cepat, dan pH basa dianggap permanen.\nDi panel lahan, faktor pembatas berwarna oranye dapat diperbaiki, sedangkan yang merah bersifat permanen."
+  },
+  {
+    question: "Bagaimana peringkat lahan jagung disusun?",
+    answer: "1. Buka menu Peringkat.\n2. Lahan diurutkan menurut kelas potensial, lalu kelas aktual, jumlah faktor yang perlu diperbaiki (lebih sedikit lebih baik), dan luas lahan.\n3. Gunakan filter kelas potensial (S1 saja, S1–S2, S1–S3, atau Semua), lalu klik Lihat di Peta untuk membuka lahan tersebut.\nSetiap baris adalah satu satuan peta tanah, bukan petak kebun."
+  },
+  {
+    question: "Mengapa tidak ada lahan berkelas S1 untuk jagung?",
+    answer: "Pada data Bogor saat ini, semua lahan berlereng di bawah 2% berada di lembah dan dataran aluvial yang drainasenya terhambat, di pantai berpasir yang drainasenya cepat, atau di rawa pasang surut. Perbaikan drainase hanya menaikkan satu kelas, sehingga lahan aluvial terbaik mencapai S2. Lahan lain yang lebih kering memiliki kelas lereng berupa rentang (misalnya 0–8%) yang melewati batas S1 3%, sehingga dinilai S2. Karena itu lahan terbaik untuk jagung berkelas potensial S2."
+  },
+  {
+    question: "Apa itu tipe profil hara?",
+    answer: "Tipe profil hara adalah kelompok lahan dengan pola pH, N, P, dan K yang mirip, dibentuk dengan metode k-means (contoh: N tinggi, K rendah, masam). Tipe profil dipakai untuk memilih paket pemupukan yang sesuai. Tipe profil bukan tingkat kesuburan dan tidak memengaruhi kelas kesesuaian maupun peringkat lahan."
   },
   {
     question: "Bagaimana cara melihat metrik fisik tanah dan metrik kimia hara lahan?",
@@ -25,7 +41,7 @@ export const FAQ_DATA = [
   },
   {
     question: "Di mana saya bisa melihat saran pemupukan dan rekomendasi dari pakar?",
-    answer: "1. Klik wilayah poligon lahan yang Anda inginkan pada peta.\n2. Di panel informasi, gulir ke bagian paling bawah.\n3. Anda akan menemukan kartu Rekomendasi Pakar yang memuat takaran dosis pupuk (seperti Urea, SP-36, KCl) beserta saran cara aplikasi yang ditulis langsung oleh pakar agronomi tepercaya untuk lahan tersebut."
+    answer: "1. Klik wilayah poligon lahan yang Anda inginkan pada peta.\n2. Di panel informasi, bagian Tipe Profil Hara menampilkan Paket Pemupukan untuk pola hara lahan tersebut. Paket berlabel Draf masih menunggu validasi pakar.\n3. Di bawahnya, kartu Rekomendasi Pakar memuat saran khusus yang ditulis pakar agronomi untuk lahan tersebut."
   },
   {
     question: "Bagaimana cara menyimpan atau menandai wilayah lahan ke akun saya?",
@@ -37,6 +53,6 @@ export const FAQ_DATA = [
   },
   {
     question: "Apa saja fitur khusus yang didapatkan oleh pengguna dengan peran Pakar (Expert)?",
-    answer: "Pengguna dengan peran Pakar yang terverifikasi dapat mengakses Dashboard Pakar untuk:\n- Mengunggah batas area lahan baru menggunakan file dengan format GeoJSON.\n- Mengubah data karakteristik fisik serta metrik unsur hara (N, P, K, pH) pada wilayah lahan terdaftar melalui formulir pengeditan.\n- Menulis, menyunting, dan menerbitkan rekomendasi pemupukan baru yang akan langsung dapat dibaca oleh para petani umum."
+    answer: "Pengguna dengan peran Pakar yang terverifikasi dapat mengakses Dashboard Pakar untuk:\n- Mengunggah batas area lahan baru menggunakan file dengan format GeoJSON.\n- Mengubah data karakteristik fisik serta metrik unsur hara (N, P, K, pH) pada wilayah lahan terdaftar melalui formulir pengeditan.\n- Menulis, menyunting, dan menerbitkan rekomendasi pemupukan baru yang akan langsung dapat dibaca oleh para petani umum.\n- Menyunting dan memvalidasi paket pemupukan untuk setiap tipe profil hara."
   }
 ];

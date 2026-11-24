@@ -22,7 +22,7 @@ export default function Navbar() {
   };
 
   const navLinkClass = ({ isActive }: { isActive: boolean }) =>
-    `px-5 py-5 text-lg font-semibold transition-all duration-300 border-b-4 ${isActive
+    `px-2 lg:px-3 xl:px-5 py-5 text-base xl:text-lg whitespace-nowrap font-semibold transition-all duration-300 border-b-4 ${isActive
       ? 'border-tertiary text-primary font-display'
       : 'border-transparent text-on-surface-variant font-sans hover:text-on-surface hover:border-outline-variant/30'
     }`;
@@ -71,7 +71,7 @@ export default function Navbar() {
         </div>
 
         {/* Center: Desktop Links */}
-        <nav className="hidden md:flex items-center gap-6">
+        <nav className="hidden md:flex items-center gap-1 lg:gap-2 xl:gap-6">
           {!isAuthenticated ? (
             <>
               {PUBLIC_NAV_LINKS.map((link) => (
@@ -106,11 +106,12 @@ export default function Navbar() {
             <div className="relative">
               <button
                 onClick={() => setProfileMenuOpen(!profileMenuOpen)}
-                className="py-2 pl-3 pr-5 text-on-surface-variant hover:text-primary hover:bg-surface-dim rounded-full transition-all flex items-center gap-3 border border-outline-variant bg-surface-container-low"
+                className="py-2 pl-3 pr-3 2xl:pr-5 text-on-surface-variant hover:text-primary hover:bg-surface-dim rounded-full transition-all flex items-center gap-3 border border-outline-variant bg-surface-container-low"
                 aria-label="Profil Menu"
+                title={cleanFullName}
               >
                 <UserCircleIcon className="w-8 h-8 text-primary" />
-                <span className="text-base font-display font-semibold text-on-surface max-w-[150px] truncate">
+                <span className="hidden 2xl:inline text-base font-display font-semibold text-on-surface max-w-[150px] truncate">
                   {cleanFullName}
                 </span>
               </button>

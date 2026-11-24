@@ -4,6 +4,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { useToast } from '../../contexts/ToastContext';
 import { adminService } from '../../services/admin.service';
 import UserTable from '../../components/admin/UserTable';
+import { ClusterRunsTable } from '../../components/admin/ClusterRunsTable';
 import {
   ShieldCheckIcon,
   UserPlusIcon,
@@ -372,6 +373,10 @@ export default function AdminPanelPage() {
             )}
           </div>
         )}
+
+        {/* SAFRONS Jagung: riwayat model tipe profil hara dan latih ulang */}
+        <hr className="border-outline-variant/70" />
+        <ClusterRunsTable />
       </div>
 
       {/* Creation Modal Dialog */}

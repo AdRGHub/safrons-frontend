@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { ClusterPackageForm } from '../../components/expert/ClusterPackageForm';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { useToast } from '../../contexts/ToastContext';
@@ -503,6 +504,11 @@ export default function ExpertDashboardPage() {
             </>
           )}
         </div>
+
+        <hr className="my-10 border-outline-variant/70" />
+
+        {/* SAFRONS Jagung: paket pemupukan per tipe profil hara */}
+        <ClusterPackageForm />
 
         <hr className="my-10 border-outline-variant/70" />
 
