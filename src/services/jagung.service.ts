@@ -19,8 +19,14 @@ export const jagungService = {
     return response.data;
   },
 
-  getSuitabilityLayer: async (): Promise<JagungSuitabilityCollection> => {
-    const response = await apiClient.get<JagungSuitabilityCollection>('/api/v1/jagung/suitability');
+  /**
+   * Lapisan peta jagung. Backend memasang cache 5 menit; `version` > 0 menambah
+   * parameter pembeda agar data segar dimuat setelah expert mengubah lahan.
+   */
+  getSuitabilityLayer: async (version = 0): Promise<JagungSuitabilityCollection> => {
+    const response = await apiClient.get<JagungSuitabilityCollection>('/api/v1/jagung/suitability', {
+      params: version > 0 ? { v: version } : undefined,
+    });
     return response.data;
   },
 };

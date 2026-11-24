@@ -13,6 +13,7 @@ import SavedRecordsPage from './pages/dashboard/SavedRecordsPage';
 import ProfilePage from './pages/dashboard/ProfilePage';
 import ExpertDashboardPage from './pages/dashboard/ExpertDashboardPage';
 import AdminPanelPage from './pages/admin/AdminPanelPage';
+import RankingPage from './pages/RankingPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
 
           <Route element={<DashboardLayout />}>
             <Route path="/dashboard" element={<div />} />
+            <Route path="/ranking" element={<RankingPage />} />
             <Route path="/records" element={<SavedRecordsPage />} />
             <Route path="/expert/panel" element={<ExpertDashboardPage />} />
             <Route path="/admin/panel" element={<AdminPanelPage />} />

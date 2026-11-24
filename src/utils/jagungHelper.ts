@@ -72,3 +72,16 @@ export function isImprovable(item: ParameterClass | undefined): boolean {
   const order: SuitabilityClass[] = ['S1', 'S2', 'S3', 'N'];
   return order.indexOf(item.potential_class) < order.indexOf(item.actual_class);
 }
+
+/** Warna isian poligon lapisan "Kesesuaian Jagung"; sama dengan MAP_LEGENDS.JAGUNG. */
+export const JAGUNG_CLASS_COLORS: Record<SuitabilityClass, string> = {
+  S1: '#16A34A',
+  S2: '#EAB308',
+  S3: '#F97316',
+  N: '#DC2626',
+};
+export const JAGUNG_NO_DATA_COLOR = '#9CA3AF';
+
+export function getColorForJagung(potentialClass: SuitabilityClass | null | undefined): string {
+  return potentialClass ? JAGUNG_CLASS_COLORS[potentialClass] : JAGUNG_NO_DATA_COLOR;
+}
