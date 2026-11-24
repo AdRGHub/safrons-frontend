@@ -42,7 +42,7 @@ export default function LandingPage() {
           )}
 
           <p className="text-on-surface-variant text-base sm:text-lg md:text-xl lg:text-2xl max-w-3xl mt-4 sm:mt-6 md:mt-8 font-sans leading-relaxed [@media(max-height:850px)]:md:text-base [@media(max-height:850px)]:lg:text-lg [@media(max-height:720px)]:text-sm [@media(max-height:720px)]:sm:text-sm [@media(max-height:720px)]:md:text-base [@media(max-height:720px)]:lg:text-base [@media(max-height:720px)]:mt-3 [@media(max-height:600px)]:text-xs [@media(max-height:600px)]:sm:text-xs [@media(max-height:600px)]:mt-2">
-            Platform analitik spasial presisi tinggi untuk pemetaan kesuburan lahan, mendukung optimalisasi hasil agronomi dan pengelolaan lahan yang berkelanjutan.
+            Rekomendasi lahan terbaik untuk jagung di Bogor dan sekitarnya: kelas kesesuaian aktual dan potensial, peringkat lahan, serta paket pemupukan sesuai tipe profil hara.
           </p>
 
           <div className="mt-6 sm:mt-8 md:mt-10 flex flex-row gap-3 sm:gap-4 w-full sm:w-auto [@media(max-height:720px)]:mt-4 [@media(max-height:600px)]:mt-3">

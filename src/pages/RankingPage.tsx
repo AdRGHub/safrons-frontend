@@ -153,7 +153,14 @@ export default function RankingPage() {
 
         {current?.data?.items.length === 0 && (
           <div className="text-center py-16 bg-surface-container-lowest rounded-2xl border border-outline-variant text-on-surface-variant">
-            Tidak ada lahan dengan kelas potensial ini.
+            <p>Tidak ada lahan dengan kelas potensial ini.</p>
+            {minClass === 'S1' && (
+              <p className="text-xs mt-2 max-w-xl mx-auto">
+                Semua lahan datar di data ini terbatas drainase (lembah aluvial tergenang atau pantai
+                berpasir), dan kelas lereng 0–8% melewati batas S1 (3%), sehingga lahan terbaik untuk
+                jagung berkelas S2. Pilih filter S1–S2.
+              </p>
+            )}
           </div>
         )}
 
