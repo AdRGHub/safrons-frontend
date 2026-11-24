@@ -201,3 +201,162 @@ export interface HaraAreaChangeRead {
   user: UserRead;
   area_name?: string | null;
 }
+
+// ---------------------------------------------------------------------------
+// SAFRONS Jagung: kesesuaian lahan jagung dan tipe profil hara (klaster)
+// Mengikuti schema backend app/schemas/jagung.py dan app/schemas/cluster.py.
+// ---------------------------------------------------------------------------
+
+export type SuitabilityClass = 'S1' | 'S2' | 'S3' | 'N';
+
+export type JagungParameterKey = 'ph' | 'n' | 'p' | 'k' | 'lereng' | 'tekstur' | 'drainase';
+
+export type ImprovementStep = 'ke_S1' | 'naik_satu_kelas';
+
+export interface ParameterClass {
+  parameter: JagungParameterKey;
+  label: string;
+  raw_value: number | string | null;
+  category: string | null;
+  actual_class: SuitabilityClass | null;
+  potential_class: SuitabilityClass | null;
+  rule_key: string | null;
+  improvable: boolean;
+  improvement_step: ImprovementStep | null;
+  source: string | null;
+}
+
+export interface PackageRead {
+  cluster_id: number;
+  title: string;
+  content: string;
+  is_draft: boolean;
+  updated_by: number | null;
+  updated_at: string;
+}
+
+export interface PackageUpdate {
+  title: string;
+  content: string;
+  is_draft: boolean;
+}
+
+export interface NutrientProfile {
+  model_version: string;
+  cluster_id: number;
+  profile_name: string;
+  package: PackageRead | null;
+}
+
+export interface JagungSuitabilityRead {
+  area_id: number;
+  name: string | null;
+  status: 'evaluated' | 'insufficient_data';
+  rule_set_version: string;
+  actual_class: SuitabilityClass | null;
+  potential_class: SuitabilityClass | null;
+  limiting_factors: JagungParameterKey[];
+  improvable_factors: JagungParameterKey[];
+  potential_limiting_factors: JagungParameterKey[];
+  missing_parameters: JagungParameterKey[];
+  parameters: ParameterClass[];
+  summary: string;
+  area_ha: number | null;
+  nutrient_profile: NutrientProfile | null;
+}
+
+export interface RankingItem {
+  rank: number;
+  area_id: number;
+  name: string | null;
+  actual_class: SuitabilityClass;
+  potential_class: SuitabilityClass;
+  limiting_factors: JagungParameterKey[];
+  improvable_factors: JagungParameterKey[];
+  cluster_id: number | null;
+  area_ha: number | null;
+}
+
+export interface JagungRankingRead {
+  rule_set_version: string;
+  min_class: SuitabilityClass;
+  limit: number;
+  total_candidates: number;
+  items: RankingItem[];
+}
+
+export interface JagungSuitabilityProperties {
+  id: number;
+  name: string | null;
+  status: 'evaluated' | 'insufficient_data';
+  actual_class: SuitabilityClass | null;
+  potential_class: SuitabilityClass | null;
+  limiting_factors: JagungParameterKey[];
+  potential_limiting_factors: JagungParameterKey[];
+  area_ha: number | null;
+  cluster_id: number | null;
+}
+
+/** Geometri GeoJSON (Polygon/MultiPolygon) dari PostGIS; null di lingkungan tanpa PostGIS. */
+export interface JagungGeometry {
+  type: string;
+  coordinates: unknown;
+}
+
+export interface JagungSuitabilityFeature {
+  type: 'Feature';
+  geometry: JagungGeometry | null;
+  properties: JagungSuitabilityProperties;
+}
+
+export interface JagungSuitabilityCollection {
+  type: 'FeatureCollection';
+  rule_set_version: string;
+  features: JagungSuitabilityFeature[];
+}
+
+export interface ClusterRead {
+  cluster_id: number;
+  profile_name: string;
+  n_areas: number;
+  mean_ph: number;
+  mean_n: number;
+  mean_p: number;
+  mean_k: number;
+  median_ph: number;
+  median_n: number;
+  median_p: number;
+  median_k: number;
+  package: PackageRead | null;
+}
+
+export interface ClustersRead {
+  model_version: string | null;
+  silhouette: number | null;
+  clusters: ClusterRead[];
+  note: string;
+}
+
+export interface RetrainRequest {
+  k?: number;
+  n_init?: number;
+  random_state?: number;
+}
+
+export interface ModelRunRead {
+  model_version: string;
+  algorithm: string;
+  k: number;
+  n_init: number;
+  random_state: number;
+  n_samples: number;
+  n_unique: number;
+  silhouette: number | null;
+  ari_mean: number | null;
+  ari_min: number | null;
+  cluster_sizes: number[];
+  artifact_path: string;
+  is_active: boolean;
+  triggered_by: number | null;
+  trained_at: string;
+}
