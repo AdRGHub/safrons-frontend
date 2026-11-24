@@ -1,11 +1,12 @@
 import { XMarkIcon, BookmarkIcon, PencilIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '../../hooks/useAuth';
-import { useHaraDiagnosis } from '../../hooks/useHaraDiagnosis';
+import { useJagungSuitability } from '../../hooks/useJagungSuitability';
 import { useHaraAdvisories } from '../../hooks/useHaraAdvisories';
 import { useSoilMetricsForm } from '../../hooks/useSoilMetricsForm';
 import { SoilMetricsList } from './SoilMetricsList';
 import { PhysicalCharacteristics } from './PhysicalCharacteristics';
-import { CropSuitabilityList } from './CropSuitabilityList';
+import { JagungSuitabilityCard } from './JagungSuitabilityCard';
+import { NutrientProfileSection } from './NutrientProfileSection';
 import { ExpertEditForm } from './ExpertEditForm';
 import { AdvisoriesSection } from './AdvisoriesSection';
 import type { GeoJSONFeature } from '../../types/api.types';
@@ -27,7 +28,7 @@ export default function DataPanel({
   const isExpert = role === 'expert' || role === 'admin';
 
   // Custom Hooks
-  const { diagnosis, isDiagnosisLoading } = useHaraDiagnosis(selectedFeature);
+  const { jagung, isJagungLoading, jagungError } = useJagungSuitability(selectedFeature);
 
   const {
     advisories,
@@ -135,10 +136,17 @@ export default function DataPanel({
                 {/* Soil Physical characteristics */}
                 <PhysicalCharacteristics properties={properties} />
 
-                {/* Crop suitability diagnostics */}
-                <CropSuitabilityList
-                  cropSuitabilities={diagnosis?.crop_suitabilities}
-                  isLoading={isDiagnosisLoading}
+                {/* Kesesuaian jagung: kelas aktual dan potensial (SAFRONS Jagung) */}
+                <JagungSuitabilityCard
+                  jagung={jagung}
+                  isLoading={isJagungLoading}
+                  error={jagungError}
+                />
+
+                {/* Tipe profil hara (klaster) dan paket pemupukan */}
+                <NutrientProfileSection
+                  profile={jagung?.nutrient_profile ?? null}
+                  isLoading={isJagungLoading}
                 />
 
                 {/* Expert Recommendations */}
