@@ -7,10 +7,11 @@ import { SaveRegionModal } from '../components/map/SaveRegionModal';
 import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { haraService } from '../services/hara.service';
+import { useJagungLayer } from '../hooks/useJagungLayer';
 import logoUrl from '../assets/icons/safrons.png';
 import type { GeoJSONFeature, GeoJSONFeatureCollection } from '../types/api.types';
 
-export type MapFilterType = 'none' | 'N' | 'P' | 'K' | 'pH';
+export type MapFilterType = 'none' | 'N' | 'P' | 'K' | 'pH' | 'JAGUNG';
 
 export default function DashboardLayout() {
   const [geoData, setGeoData] = useState<GeoJSONFeatureCollection | null>(null);
@@ -19,6 +20,9 @@ export default function DashboardLayout() {
   const [currentLocation, setCurrentLocation] = useState<{ lat: number; lon: number } | null>(null);
   const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState<MapFilterType>('none');
+  // SAFRONS Jagung: dinaikkan setelah expert mengubah lahan agar lapisan jagung dimuat ulang.
+  const [jagungLayerVersion, setJagungLayerVersion] = useState(0);
+  const { potentialClasses } = useJagungLayer(activeFilter, jagungLayerVersion);
   const { isAuthenticated, isLoading } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -50,6 +54,7 @@ export default function DashboardLayout() {
       };
     });
     setSelectedFeature(updatedFeature);
+    setJagungLayerVersion((version) => version + 1);
   }, []);
 
   useEffect(() => {
@@ -111,6 +116,7 @@ export default function DashboardLayout() {
             currentLocation={currentLocation}
             setCurrentLocation={setCurrentLocation}
             selectedFeature={selectedFeature}
+            jagungClasses={potentialClasses}
           />
         </div>
 

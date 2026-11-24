@@ -5,7 +5,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { MapLegend } from './MapLegend';
 import { MapControls } from './MapControls';
-import type { GeoJSONFeatureCollection, GeoJSONFeature } from '../../types/api.types';
+import type { GeoJSONFeatureCollection, GeoJSONFeature, SuitabilityClass } from '../../types/api.types';
 import type { Layer, LeafletMouseEvent } from 'leaflet';
 import type { MapFilterType } from '../../layouts/DashboardLayout';
 import { useMapState } from '../../hooks/useMapState';
@@ -26,6 +26,7 @@ interface SpatialMapProps {
   currentLocation: { lat: number; lon: number } | null;
   setCurrentLocation: (loc: { lat: number; lon: number } | null) => void;
   selectedFeature: GeoJSONFeature | null;
+  jagungClasses?: Map<number, SuitabilityClass | null> | null;
 }
 
 
@@ -79,7 +80,8 @@ export const SpatialMap: React.FC<SpatialMapProps> = ({
   setActiveFilter,
   currentLocation,
   setCurrentLocation,
-  selectedFeature
+  selectedFeature,
+  jagungClasses = null
 }) => {
   const geoJsonRef = useRef<L.GeoJSON>(null);
 
@@ -90,7 +92,7 @@ export const SpatialMap: React.FC<SpatialMapProps> = ({
     setSearchedLocation,
     getPolygonStyle,
     styleRef
-  } = useMapState(geoData, selectedFeature, activeFilter, onPolygonClick, geoJsonRef);
+  } = useMapState(geoData, selectedFeature, activeFilter, onPolygonClick, geoJsonRef, jagungClasses);
 
   const onEachFeature = useCallback((feature: GeoJSONFeature, layer: Layer) => {
     layer.on({

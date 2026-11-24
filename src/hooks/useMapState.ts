@@ -2,17 +2,19 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import L from 'leaflet';
 import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
 import { point } from '@turf/helpers';
-import type { GeoJSONFeatureCollection, GeoJSONFeature } from '../types/api.types';
+import type { GeoJSONFeatureCollection, GeoJSONFeature, SuitabilityClass } from '../types/api.types';
 import type { PathOptions } from 'leaflet';
 import type { MapFilterType } from '../layouts/DashboardLayout';
 import { getColorForpH, getColorForN, getColorForP, getColorForK } from '../utils/agronomyHelper';
+import { getColorForJagung } from '../utils/jagungHelper';
 
 export function useMapState(
   geoData: GeoJSONFeatureCollection | null,
   selectedFeature: GeoJSONFeature | null,
   activeFilter: MapFilterType,
   onPolygonClick: (lon: number, lat: number, feature: GeoJSONFeature) => void,
-  geoJsonRef: React.RefObject<L.GeoJSON | null>
+  geoJsonRef: React.RefObject<L.GeoJSON | null>,
+  jagungClasses: Map<number, SuitabilityClass | null> | null = null
 ) {
   const [activeBasemap, setActiveBasemap] = useState<string>('standar');
   const [searchedLocation, setSearchedLocation] = useState<{ lat: number; lon: number; name: string } | null>(null);
@@ -63,6 +65,9 @@ export function useMapState(
         fillColor = getColorForP(p_rata2);
       } else if (activeFilter === 'K') {
         fillColor = getColorForK(k_rata2);
+      } else if (activeFilter === 'JAGUNG') {
+        // SAFRONS Jagung: warna menurut kelas potensial dari /api/v1/jagung/suitability
+        fillColor = getColorForJagung(jagungClasses?.get((feature as GeoJSONFeature).properties.id));
       }
     }
 
@@ -72,7 +77,7 @@ export function useMapState(
       color: isSelected ? '#FFD700' : '#EFF3EA',
       fillOpacity: isSelected ? 0.9 : 0.7,
     };
-  }, [activeFilter, selectedFeature]);
+  }, [activeFilter, selectedFeature, jagungClasses]);
 
   const styleRef = useRef(getPolygonStyle);
   

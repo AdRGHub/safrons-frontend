@@ -9,7 +9,8 @@ export const MAP_FILTERS = [
   { id: 'pH', label: 'Kadar pH', desc: 'Tingkat Keasaman' },
   { id: 'N', label: 'Nitrogen (N)', desc: 'Kesehatan Daun' },
   { id: 'P', label: 'Fosfor (P)', desc: 'Perkembangan Akar' },
-  { id: 'K', label: 'Kalium (K)', desc: 'Kekebalan Tanaman' }
+  { id: 'K', label: 'Kalium (K)', desc: 'Kekebalan Tanaman' },
+  { id: 'JAGUNG', label: 'Kesesuaian Jagung', desc: 'Kelas Potensial' }
 ];
 
 export const MAP_LEGENDS = {
@@ -56,6 +57,17 @@ export const MAP_LEGENDS = {
       { color: '#8EC849', label: '33.2 - 44.8 (Tinggi)' },
       { color: '#2C5E2E', label: '> 44.8 (Sangat Tinggi)' },
       { color: '#9CA3AF', label: 'Tidak Ada Data' }
+    ]
+  },
+  // SAFRONS Jagung: warna sama dengan JAGUNG_CLASS_COLORS di utils/jagungHelper.ts
+  JAGUNG: {
+    title: 'Kesesuaian Jagung (Kelas Potensial)',
+    items: [
+      { color: '#16A34A', label: 'S1 (Sangat Sesuai)' },
+      { color: '#EAB308', label: 'S2 (Cukup Sesuai)' },
+      { color: '#F97316', label: 'S3 (Sesuai Marginal)' },
+      { color: '#DC2626', label: 'N (Tidak Sesuai)' },
+      { color: '#9CA3AF', label: 'Data Tidak Cukup' }
     ]
   }
 };
